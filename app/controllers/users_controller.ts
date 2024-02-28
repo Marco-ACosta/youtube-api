@@ -16,6 +16,7 @@ export default class UsersController {
   async login({ request, response }: HttpContext) {
     const data = await request.validateUsing(userLoginValidator)
     const user = await User.verifyCredentials(data.email, data.password)
+    console.log({ user })
     const token = await User.accessTokens.create(user)
     return response.ok({ token })
   }
