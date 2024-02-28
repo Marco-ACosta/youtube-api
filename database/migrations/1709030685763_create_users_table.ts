@@ -5,9 +5,9 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid('id').defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery).unique().primary()
+      table.uuid('id').primary().defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
       table.string('name').nullable()
-      table.string('email').notNullable().unique().checkRegex('/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/')
+      table.string('email').notNullable().unique()
       table.string('password').notNullable()
 
       table.timestamp('created_at', { useTz: false }).notNullable().defaultTo(this.now())
