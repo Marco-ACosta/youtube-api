@@ -7,7 +7,7 @@ export const createVideoValidator = vine.compile(
         url: vine.string().url().trim(),
         video: vine.file({
             size: '512mb',
-            extnames: ['png'],
+            extnames: ['mp4', 'mov', 'avi', 'wmv', 'flv', 'mkv', 'webm', 'avchd', 'ogg'],
           })
         })
 )

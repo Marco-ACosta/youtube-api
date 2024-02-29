@@ -23,7 +23,6 @@ export default class VideosController {
       return response.created()
     }
     catch (error) {
-      console.log(error)
       return response.send(error)
     }
   }
