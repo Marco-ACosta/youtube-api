@@ -9,6 +9,7 @@
 
 const UsersController = () => import('#controllers/users_controller')
 const VideosController = () => import('#controllers/videos_controller')
+const OAuth2SController = () => import('#controllers/o_auth_2_s_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
@@ -24,4 +25,8 @@ router.group(() => {
 
 router.group(() => {
   router.post('', [VideosController, 'store'])
-}).prefix('/videos').use([middleware.auth()])
+}).prefix('/videos').use([middleware.auth(), middleware.oauth2()])
+
+router.group(() => {
+  router.get('', [OAuth2SController, 'generate'])
+}).prefix('/oauth2')
