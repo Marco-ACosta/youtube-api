@@ -18,15 +18,27 @@ router.get('/', async () => {
     hello: 'world',
   }
 })
-router.group(() => {
-  router.post('', [UsersController, 'store'])
-  router.post('/login', [UsersController, 'login'])  
-}).prefix('/users')
+router
+  .group(() => {
+    router.post('', [UsersController, 'store'])
+    router.post('/login', [UsersController, 'login'])
+  })
+  .prefix('/users')
 
-router.group(() => {
-  router.post('', [VideosController, 'store'])
-}).prefix('/videos').use([middleware.auth(), middleware.oauth2()])
+router
+  .group(() => {
+    router.post('', [VideosController, 'store'])
+    router.get('', [VideosController, 'index'])
+    router.get('/:id', [VideosController, 'show'])
+    router.put('/:id', [VideosController, 'update'])
+    router.delete('/:id', [VideosController, 'destroy'])
+    router.delete('/destroy/:id', [VideosController, 'destroy'])
+  })
+  .prefix('/videos')
+  .use([middleware.auth(), middleware.oauth2()])
 
-router.group(() => {
-  router.get('', [OAuth2SController, 'generate'])
-}).prefix('/oauth2')
+router
+  .group(() => {
+    router.get('', [OAuth2SController, 'generate'])
+  })
+  .prefix('/oauth2')
